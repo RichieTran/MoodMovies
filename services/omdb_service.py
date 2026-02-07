@@ -11,6 +11,7 @@ class OMDBService:
 
     def _make_request(self, params):
         """Make a request to the OMDb API"""
+        params['tomatoes'] = 'true'
         params['apikey'] = self.api_key
 
         try:

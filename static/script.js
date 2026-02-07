@@ -214,6 +214,58 @@ async function handleMovieClick(movieId) {
     }
 }
 
+// Helper function to generate star rating HTML
+function generateStarRating(rating) {
+    const totalStars = 5;
+
+    if (!rating) {
+        // No rating available - show all grey stars
+        let starsHTML = '';
+        for (let i = 0; i < totalStars; i++) {
+            starsHTML += '<span class="star empty">★</span>';
+        }
+        return starsHTML;
+    }
+
+    // Convert TMDB rating (out of 10) to 5-star rating
+    const convertedRating = rating / 2;
+
+    const wholePart = Math.floor(convertedRating);
+    const decimalPart = convertedRating - wholePart;
+
+    let filledStars = wholePart;
+    let hasHalfStar = false;
+
+    // Check if decimal is between 0.2 and 0.8 for half star
+    if (decimalPart >= 0.2 && decimalPart <= 0.8) {
+        hasHalfStar = true;
+    } else if (decimalPart > 0.8) {
+        // Round up if decimal > 0.8
+        filledStars += 1;
+    }
+
+    const emptyStars = totalStars - filledStars - (hasHalfStar ? 1 : 0);
+
+    let starsHTML = '';
+
+    // Add filled stars (yellow)
+    for (let i = 0; i < filledStars; i++) {
+        starsHTML += '<span class="star filled">★</span>';
+    }
+
+    // Add half star if needed
+    if (hasHalfStar) {
+        starsHTML += '<span class="star half">★</span>';
+    }
+
+    // Add empty stars (grey)
+    for (let i = 0; i < emptyStars; i++) {
+        starsHTML += '<span class="star empty">★</span>';
+    }
+
+    return starsHTML;
+}
+
 // Display Functions
 function displayMovies(movies, title) {
     resultsTitle.textContent = title;
@@ -233,8 +285,8 @@ function displayMovies(movies, title) {
             <div class="movie-card-content">
                 <h3>${movie.title}</h3>
                 <div class="movie-rating">
-                    <span>⭐</span>
-                    <span>${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</span>
+                    ${generateStarRating(movie.vote_average)}
+                    <span class="rating-text">(TMDb: ${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'})</span>
                 </div>
                 <p class="movie-overview">${movie.overview || 'No overview available'}</p>
             </div>
@@ -253,6 +305,23 @@ function displayMovieDetails(data, similarMovies = [], currentMovieId = null) {
     const omdb = data.omdb || {};
 
     const posterUrl = combined.poster || 'https://via.placeholder.com/300x450?text=No+Poster';
+
+    // Extract ratings from OMDb
+    let imdbRating = 'N/A';
+    let rtRating = 'N/A';
+
+    if (omdb && omdb.Ratings) {
+        const imdbRatingObj = omdb.Ratings.find(r => r.Source === 'Internet Movie Database');
+        const rtRatingObj = omdb.Ratings.find(r => r.Source === 'Rotten Tomatoes');
+
+        if (imdbRatingObj) imdbRating = imdbRatingObj.Value;
+        if (rtRatingObj) rtRating = rtRatingObj.Value;
+    }
+
+    // Fallback to imdbRating from combined if not in Ratings array
+    if (imdbRating === 'N/A' && combined.imdb_rating) {
+        imdbRating = `${combined.imdb_rating}/10`;
+    }
 
     // Build similar movies HTML
     let similarMoviesHtml = '';
@@ -293,20 +362,16 @@ function displayMovieDetails(data, similarMovies = [], currentMovieId = null) {
                 <p><strong>Runtime:</strong> ${combined.runtime || 'N/A'}</p>
                 <p><strong>Director:</strong> ${combined.director || 'N/A'}</p>
                 <p><strong>Actors:</strong> ${combined.actors || 'N/A'}</p>
-                <p><strong>TMDB Rating:</strong> ${combined.tmdb_rating ? combined.tmdb_rating.toFixed(1) : 'N/A'}/10</p>
-                <p><strong>IMDb Rating:</strong> ${combined.imdb_rating || 'N/A'}/10</p>
+                <div class="ratings-row">
+                    <p><strong>IMDb:</strong> ${imdbRating}</p>
+                    <p><strong>Rotten Tomatoes:</strong> ${rtRating}</p>
+                </div>
             </div>
         </div>
         <div class="movie-detail-plot">
             <h3>Plot</h3>
             <p>${combined.plot || 'No plot available'}</p>
         </div>
-        ${combined.ratings && combined.ratings.length > 0 ? `
-            <div class="movie-detail-ratings">
-                <h3>Ratings</h3>
-                ${combined.ratings.map(r => `<p><strong>${r.Source}:</strong> ${r.Value}</p>`).join('')}
-            </div>
-        ` : ''}
         ${similarMoviesHtml}
     `;
 

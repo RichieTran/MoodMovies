@@ -208,9 +208,34 @@ section h2 {
 .movie-rating {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 2px;
+    font-size: 1em;
+}
+
+.movie-rating .star {
+    line-height: 1;
+}
+
+.movie-rating .star.filled {
     color: #f39c12;
-    font-weight: bold;
+}
+
+.movie-rating .star.empty {
+    color: #4a5568;
+}
+
+.movie-rating .star.half {
+    background: linear-gradient(90deg, #f39c12 50%, #4a5568 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.movie-rating .rating-text {
+    margin-left: 8px;
+    color: #a8b3cf;
+    font-size: 0.85em;
+    font-weight: normal;
 }
 
 .movie-overview {
@@ -283,6 +308,16 @@ section h2 {
     margin-bottom: 10px;
     line-height: 1.6;
     color: white;
+}
+
+.ratings-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.ratings-row p {
+    margin-bottom: 0;
 }
 
 .movie-detail-plot h3 {
