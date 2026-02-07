@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodMovies - Find Your Perfect Movie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎬 MoodMovies</h1>
+            <p class="tagline">Discover movies that match your mood</p>
+        </header>
+
+        <main>
+            <!-- Search Section -->
+            <section class="search-section">
+                <h2>Search Movies</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search for a movie...">
+                    <button id="searchBtn">Search</button>
+                </div>
+            </section>
+
+            <!-- Mood Selection Section -->
+            <section class="mood-section">
+                <h2>How are you feeling?</h2>
+                <div class="mood-grid">
+                    {% for mood in moods %}
+                    <button class="mood-btn" data-mood="{{ mood }}">
+                        {{ mood.capitalize() }}
+                    </button>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Genre Selection Section -->
+            <section class="genre-section">
+                <h2>Or choose a genre</h2>
+                <div class="genre-grid">
+                    {% for genre in genres %}
+                    <button class="genre-btn" data-genre="{{ genre }}">
+                        {{ genre }}
+                    </button>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Quick Access Buttons -->
+            <section class="quick-access">
+                <h2>Quick Access</h2>
+                <div class="quick-btns">
+                    <button id="trendingBtn">Trending Now</button>
+                    <button id="popularBtn">Popular Movies</button>
+                    <button id="topRatedBtn">Top Rated</button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <h2 id="resultsTitle">Results</h2>
+                <div id="movieGrid" class="movie-grid"></div>
+            </section>
+
+            <!-- Movie Details Modal -->
+            <div id="movieModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div id="movieDetails"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by TMDB and OMDb APIs</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
