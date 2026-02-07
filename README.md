@@ -9,34 +9,6 @@ A Python web application that recommends movies based on your mood, preferences,
 - Similar movie recommendations
 - Detailed movie information from both TMDB and OMDb
 
-## Setup
-
-1. Clone the repository
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Create a `.env` file and add your API keys:
-   ```
-   TMDB_API_KEY=your_tmdb_api_key_here
-   OMDB_API_KEY=your_omdb_api_key_here
-   SECRET_KEY=your_secret_key_here
-   ```
-
-5. Run the application:
-   ```bash
-   python app.py
-   ```
-
-6. Open your browser and navigate to `http://localhost:5000`
-
 ## API Keys
 
 - **TMDB API Key**: Get it from [https://www.themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
