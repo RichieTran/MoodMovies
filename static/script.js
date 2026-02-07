@@ -121,6 +121,17 @@ async function getMovieDetails(movieId) {
     }
 }
 
+async function getSimilarMovies(movieId) {
+    try {
+        const response = await fetch(`/api/recommend/similar/${movieId}?limit=5`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Similar movies error:', error);
+        return null;
+    }
+}
+
 // Event Handlers
 async function handleSearch() {
     const query = searchInput.value.trim();
@@ -193,9 +204,11 @@ async function handleTopRated() {
 
 async function handleMovieClick(movieId) {
     const data = await getMovieDetails(movieId);
+    const similarData = await getSimilarMovies(movieId);
 
     if (data) {
-        displayMovieDetails(data);
+        const similarMovies = similarData && similarData.similar_movies ? similarData.similar_movies : [];
+        displayMovieDetails(data, similarMovies, movieId);
     } else {
         alert('Failed to load movie details');
     }
@@ -234,12 +247,41 @@ function displayMovies(movies, title) {
     resultsSection.scrollIntoView({ behavior: 'smooth' });
 }
 
-function displayMovieDetails(data) {
+function displayMovieDetails(data, similarMovies = [], currentMovieId = null) {
     const combined = data.combined || {};
     const tmdb = data.tmdb || {};
     const omdb = data.omdb || {};
 
     const posterUrl = combined.poster || 'https://via.placeholder.com/300x450?text=No+Poster';
+
+    // Build similar movies HTML
+    let similarMoviesHtml = '';
+    if (similarMovies && similarMovies.length > 0) {
+        similarMoviesHtml = `
+            <div class="similar-movies-section">
+                <h3>Similar Movies</h3>
+                <div class="similar-movies-grid">
+                    ${similarMovies.map(movie => {
+                        const moviePoster = movie.poster_path
+                            ? `https://image.tmdb.org/t/p/w200${movie.poster_path}`
+                            : 'https://via.placeholder.com/200x300?text=No+Poster';
+                        return `
+                            <div class="similar-movie-card" onclick="handleMovieClick(${movie.id})">
+                                <img src="${moviePoster}" alt="${movie.title}">
+                                <div class="similar-movie-info">
+                                    <h4>${movie.title}</h4>
+                                    <div class="similar-movie-rating">
+                                        <span>⭐</span>
+                                        <span>${movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+        `;
+    }
 
     movieDetails.innerHTML = `
         <div class="movie-detail-header">
@@ -265,6 +307,7 @@ function displayMovieDetails(data) {
                 ${combined.ratings.map(r => `<p><strong>${r.Source}:</strong> ${r.Value}</p>`).join('')}
             </div>
         ` : ''}
+        ${similarMoviesHtml}
     `;
 
     movieModal.style.display = 'block';
