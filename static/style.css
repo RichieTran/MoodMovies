@@ -1,3 +1,5 @@
+/* Used Claude for style (uploaded reference images)
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -7,7 +9,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #141824;
     color: #333;
     min-height: 100vh;
     padding: 20px;
@@ -16,10 +18,10 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    background: white;
+    background: #1e2230;
     border-radius: 20px;
     padding: 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 /* Header */
@@ -27,18 +29,18 @@ header {
     text-align: center;
     margin-bottom: 40px;
     padding-bottom: 20px;
-    border-bottom: 2px solid #667eea;
+    border-bottom: 2px solid #165a94;
 }
 
 header h1 {
     font-size: 3em;
-    color: #667eea;
+    color: #ffffff;
     margin-bottom: 10px;
 }
 
 .tagline {
     font-size: 1.2em;
-    color: #666;
+    color: #a8b3cf;
 }
 
 /* Section Styles */
@@ -48,7 +50,7 @@ section {
 
 section h2 {
     font-size: 1.8em;
-    color: #333;
+    color: #ffffff;
     margin-bottom: 20px;
 }
 
@@ -63,19 +65,25 @@ section h2 {
     flex: 1;
     padding: 15px;
     font-size: 1em;
-    border: 2px solid #ddd;
+    border: 2px solid #2d3548;
     border-radius: 10px;
     outline: none;
     transition: border-color 0.3s;
+    background: #252b3d;
+    color: #ffffff;
+}
+
+#searchInput::placeholder {
+    color: #6b7280;
 }
 
 #searchInput:focus {
-    border-color: #667eea;
+    border-color: #165a94;
 }
 
 #searchBtn {
     padding: 15px 30px;
-    background: #667eea;
+    background: #165a94;
     color: white;
     border: none;
     border-radius: 10px;
@@ -85,7 +93,7 @@ section h2 {
 }
 
 #searchBtn:hover {
-    background: #5568d3;
+    background: #114573;
 }
 
 /* Mood Grid */
@@ -97,19 +105,20 @@ section h2 {
 
 .mood-btn {
     padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #165a94;
     color: white;
     border: none;
     border-radius: 15px;
     font-size: 1.1em;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     text-transform: capitalize;
 }
 
 .mood-btn:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 10px 20px rgba(22, 90, 148, 0.4);
+    background: #114573;
 }
 
 /* Genre Grid */
@@ -121,9 +130,9 @@ section h2 {
 
 .genre-btn {
     padding: 15px;
-    background: #f8f9fa;
-    color: #333;
-    border: 2px solid #667eea;
+    background: #252b3d;
+    color: #a8b3cf;
+    border: 2px solid #165a94;
     border-radius: 10px;
     font-size: 1em;
     cursor: pointer;
@@ -131,7 +140,7 @@ section h2 {
 }
 
 .genre-btn:hover {
-    background: #667eea;
+    background: #165a94;
     color: white;
     transform: scale(1.05);
 }
@@ -145,7 +154,7 @@ section h2 {
 
 .quick-btns button {
     padding: 15px 30px;
-    background: #764ba2;
+    background: #165a94;
     color: white;
     border: none;
     border-radius: 10px;
@@ -155,7 +164,7 @@ section h2 {
 }
 
 .quick-btns button:hover {
-    background: #5d3a7f;
+    background: #114573;
 }
 
 /* Movie Grid */
@@ -167,17 +176,17 @@ section h2 {
 }
 
 .movie-card {
-    background: white;
+    background: #252b3d;
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .movie-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 30px rgba(22, 90, 148, 0.3);
 }
 
 .movie-card img {
@@ -193,7 +202,7 @@ section h2 {
 .movie-card h3 {
     font-size: 1.1em;
     margin-bottom: 10px;
-    color: #333;
+    color: white;
 }
 
 .movie-rating {
@@ -206,7 +215,7 @@ section h2 {
 
 .movie-overview {
     font-size: 0.9em;
-    color: #666;
+    color: #a8b3cf;
     margin-top: 10px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -227,13 +236,15 @@ section h2 {
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #1e2230;
     margin: 5% auto;
     padding: 30px;
     border-radius: 20px;
     width: 80%;
     max-width: 800px;
     position: relative;
+    color: white;
+    border: 1px solid #2d3548;
 }
 
 .close {
@@ -245,7 +256,7 @@ section h2 {
 }
 
 .close:hover {
-    color: #000;
+    color: white;
 }
 
 #movieDetails {
@@ -265,11 +276,32 @@ section h2 {
 
 .movie-detail-info h2 {
     margin-bottom: 10px;
+    color: white;
 }
 
 .movie-detail-info p {
     margin-bottom: 10px;
     line-height: 1.6;
+    color: white;
+}
+
+.movie-detail-plot h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.movie-detail-plot p {
+    color: white;
+    line-height: 1.6;
+}
+
+.movie-detail-ratings h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.movie-detail-ratings p {
+    color: white;
 }
 
 /* Loading State */
@@ -277,7 +309,7 @@ section h2 {
     text-align: center;
     padding: 40px;
     font-size: 1.2em;
-    color: #667eea;
+    color: #165a94;
 }
 
 /* Footer */
@@ -285,8 +317,8 @@ footer {
     text-align: center;
     margin-top: 40px;
     padding-top: 20px;
-    border-top: 2px solid #ddd;
-    color: #666;
+    border-top: 2px solid #2d3548;
+    color: #a8b3cf;
 }
 
 /* Responsive Design */

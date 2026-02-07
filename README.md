@@ -31,10 +31,8 @@ moodMovies/
 ├── templates/             # HTML templates
 │   └── index.html
 └── static/               # Static files
-    ├── css/
-    │   └── style.css
-    └── js/
-        └── script.js
+    ├── style.css
+    └── script.js
 ```
 
 ## Technologies Used

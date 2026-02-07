@@ -1,3 +1,5 @@
+# Basic functionality created by Claude
+
 from flask import Flask, render_template, request, jsonify
 from config import Config
 from services.recommendation_service import RecommendationService
@@ -158,4 +160,4 @@ def internal_error(error):
 
 
 if __name__ == '__main__':
-    app.run(debug=Config.DEBUG, host='0.0.0.0', port=5000)
+    app.run(debug=Config.DEBUG, host='0.0.0.0', port=8000)

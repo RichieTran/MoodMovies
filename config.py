@@ -1,3 +1,5 @@
+# Boilerplate created by Claude
+
 import os
 from dotenv import load_dotenv
 
