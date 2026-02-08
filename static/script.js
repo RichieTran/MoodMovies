@@ -22,16 +22,67 @@ searchInput.addEventListener('keypress', (e) => {
 });
 
 moodBtns.forEach(btn => {
-    btn.addEventListener('click', () => handleMoodClick(btn.dataset.mood));
+    btn.addEventListener('click', () => {
+        // Remove active class from all mood buttons
+        moodBtns.forEach(b => b.classList.remove('active'));
+        // Remove active class from genre and quick access buttons
+        genreBtns.forEach(b => b.classList.remove('active'));
+        trendingBtn.classList.remove('active');
+        popularBtn.classList.remove('active');
+        topRatedBtn.classList.remove('active');
+        // Add active class to clicked button
+        btn.classList.add('active');
+        handleMoodClick(btn.dataset.mood);
+    });
 });
 
 genreBtns.forEach(btn => {
-    btn.addEventListener('click', () => handleGenreClick(btn.dataset.genre));
+    btn.addEventListener('click', () => {
+        // Remove active class from all genre buttons
+        genreBtns.forEach(b => b.classList.remove('active'));
+        // Remove active class from mood and quick access buttons
+        moodBtns.forEach(b => b.classList.remove('active'));
+        trendingBtn.classList.remove('active');
+        popularBtn.classList.remove('active');
+        topRatedBtn.classList.remove('active');
+        // Add active class to clicked button
+        btn.classList.add('active');
+        handleGenreClick(btn.dataset.genre);
+    });
 });
 
-trendingBtn.addEventListener('click', handleTrending);
-popularBtn.addEventListener('click', handlePopular);
-topRatedBtn.addEventListener('click', handleTopRated);
+trendingBtn.addEventListener('click', () => {
+    // Remove active class from all buttons
+    moodBtns.forEach(b => b.classList.remove('active'));
+    genreBtns.forEach(b => b.classList.remove('active'));
+    popularBtn.classList.remove('active');
+    topRatedBtn.classList.remove('active');
+    // Add active class to trending button
+    trendingBtn.classList.add('active');
+    handleTrending();
+});
+
+popularBtn.addEventListener('click', () => {
+    // Remove active class from all buttons
+    moodBtns.forEach(b => b.classList.remove('active'));
+    genreBtns.forEach(b => b.classList.remove('active'));
+    trendingBtn.classList.remove('active');
+    topRatedBtn.classList.remove('active');
+    // Add active class to popular button
+    popularBtn.classList.add('active');
+    handlePopular();
+});
+
+topRatedBtn.addEventListener('click', () => {
+    // Remove active class from all buttons
+    moodBtns.forEach(b => b.classList.remove('active'));
+    genreBtns.forEach(b => b.classList.remove('active'));
+    trendingBtn.classList.remove('active');
+    popularBtn.classList.remove('active');
+    // Add active class to top rated button
+    topRatedBtn.classList.add('active');
+    handleTopRated();
+});
 
 closeModal.addEventListener('click', () => {
     movieModal.style.display = 'none';
@@ -136,6 +187,13 @@ async function getSimilarMovies(movieId) {
 async function handleSearch() {
     const query = searchInput.value.trim();
     if (!query) return;
+
+    // Remove active class from all buttons when searching
+    moodBtns.forEach(b => b.classList.remove('active'));
+    genreBtns.forEach(b => b.classList.remove('active'));
+    trendingBtn.classList.remove('active');
+    popularBtn.classList.remove('active');
+    topRatedBtn.classList.remove('active');
 
     showLoading();
     const data = await searchMovies(query);

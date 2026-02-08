@@ -105,20 +105,21 @@ section h2 {
 
 .mood-btn {
     padding: 20px;
-    background: #165a94;
-    color: white;
-    border: none;
-    border-radius: 15px;
-    font-size: 1.1em;
+    background: #252b3d;
+    color: #a8b3cf;
+    border: 2px solid #165a94;
+    border-radius: 10px;
+    font-size: 1em;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    transition: all 0.3s;
     text-transform: capitalize;
 }
 
-.mood-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(22, 90, 148, 0.4);
-    background: #114573;
+.mood-btn:hover,
+.mood-btn.active {
+    background: #165a94;
+    color: white;
+    transform: scale(1.05);
 }
 
 /* Genre Grid */
@@ -139,7 +140,8 @@ section h2 {
     transition: all 0.3s;
 }
 
-.genre-btn:hover {
+.genre-btn:hover,
+.genre-btn.active {
     background: #165a94;
     color: white;
     transform: scale(1.05);
@@ -154,17 +156,20 @@ section h2 {
 
 .quick-btns button {
     padding: 15px 30px;
-    background: #165a94;
-    color: white;
-    border: none;
+    background: #252b3d;
+    color: #a8b3cf;
+    border: 2px solid #165a94;
     border-radius: 10px;
     font-size: 1em;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: all 0.3s;
 }
 
-.quick-btns button:hover {
-    background: #114573;
+.quick-btns button:hover,
+.quick-btns button.active {
+    background: #165a94;
+    color: white;
+    transform: scale(1.05);
 }
 
 /* Movie Grid */
