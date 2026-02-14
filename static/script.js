@@ -1,5 +1,3 @@
-// Claude created basic functionality
-
 // DOM Elements
 const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');

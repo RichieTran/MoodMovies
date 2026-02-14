@@ -1,5 +1,3 @@
-# Basic functionality created by Claude
-
 from flask import Flask, render_template, request, jsonify
 from config import Config
 from services.recommendation_service import RecommendationService
